@@ -141,8 +141,25 @@ ggplot(rooms, aes(x=`change in price`, y=category))+ geom_point()
 ```
 
 ```{r}
+m1$coefficients
 
-plot(m1)
+m1$coefficients[7:31]
+m1$xlevels[2]
+coeff
+
+coeff <- data.frame(m1$coefficients)
+coeff$category <- as.character(rownames(coeff))
+colnames(coeff) <- c("change in price", "category")
+
+rooms <- coeff[7:31,]
+rooms <- rbind(rooms, c(0, "ANG MO KIO"))
+ggplot(rooms, aes(x=`change in price`, y=category))+ geom_point()
+
+```
+```{r}
+towns <- coeff[7:31,]
+towns <- rbind(towns, c(0, "ANG MO KIO"))
+ggplot(towns, aes(x=`change in price`, y=category))+ geom_point() + theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
 ```{r}
