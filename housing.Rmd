@@ -159,7 +159,14 @@ ggplot(rooms, aes(x=`change in price`, y=category))+ geom_point()
 ```{r}
 towns <- coeff[7:31,]
 towns <- rbind(towns, c(0, "ANG MO KIO"))
-ggplot(towns, aes(x=`change in price`, y=category))+ geom_point() + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+ggplot(towns, aes(x=`change in price`, y=category)) + geom_point() + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+
+```{r}
+storey <- coeff[32:47,]
+storey
+storey <- rbind(storey, c(0, "storey 0 to 3"))
+ggplot(storey, aes(x=`change in price`, y=category)) + geom_point() + theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
 ```{r}
