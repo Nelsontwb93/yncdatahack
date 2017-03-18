@@ -1,0 +1,129 @@
+# Metadata for Consumer Price Index, Monthly
+---
+Identifier: '20d0395c-e6a5-4aba-9e1a-02b78fdefdab'
+Name: 'consumer-price-index-monthly'
+Title: 'Consumer Price Index, Monthly'
+Description: 'The CPI is designed to measure the average price changes in a fixed
+  basket of consumption goods and services commonly purchased by the resident households
+  over time. It is commonly used as a measure of consumer price inflation. The Base
+  Year is 2014.'
+Topics:
+  - 'Economy'
+Keywords:
+  - 'business'
+  - 'cpi'
+  - 'price index'
+Publisher:
+  Name: 'Ministry of Trade and Industry - Department of Statistics'
+  Admin 1:
+    Name: 'Edwin Boey'
+    Department: 'Policy Planning Department'
+    Email: 'edwin_boey@singstat.gov.sg'
+  Admin 2:
+    Name: 'Singstat info'
+    Department: 'Statistics Information Services'
+    Email: 'info@singstat.gov.sg'
+Sources:
+  - 'Ministry of Trade and Industry - Department of Statistics'
+Source Url: 'http://www.tablebuilder.singstat.gov.sg/publicfacing/createDataTable.action?refId=6769&exportType=csv'
+License: 'https://data.gov.sg/open-data-licence'
+Frequency: 'Monthly'
+Coverage: '1961-01-01 to 2017-01-31'
+Last Updated: '2017-03-14T16:10:12.097272'
+Resources:
+  -
+    Identifier: '67d08d6b-2efa-4825-8bdb-667d23b7285e'
+    Title: 'Consumer Price Index, Base Year 2014 = 100, Monthly'
+    Url: 'https://storage.data.gov.sg/consumer-price-index-monthly/resources/consumer-price-index-base-year-2014-100-monthly-2017-03-14T16-09-04Z.csv'
+    Format: 'CSV'
+    Coverage: '1961-01-01 to 2017-01-31'
+    Description: 'The CPI covers only consumption expenditure incurred by resident
+      households. Non-consumption expenditures such as loan repayments, income tax,
+      purchase of houses, shares and other financial assets are excluded.'
+    Last Updated: '2017-03-14T16:09:04.193141'
+    Schema:
+      -
+        Name: 'month'
+        Title: 'Month'
+        Type: 'datetime'
+        Sub Type: 'month'
+        Format: 'YYYY-MM'
+      -
+        Name: 'level_1'
+        Title: 'All Items'
+        Type: 'text'
+        Sub Type: 'general'
+      -
+        Name: 'value'
+        Title: 'Value'
+        Type: 'numeric'
+        Sub Type: 'general'
+        Unit Of Measure: 'Index'
+        Description: '"na" : Data not available or not applicable'
+  -
+    Identifier: '49ca0f3d-4ea4-44a3-9012-d1fd3b8495a4'
+    Title: 'Consumer Price Index at Division Level, Base Year 2014 = 100, Monthly'
+    Url: 'https://storage.data.gov.sg/consumer-price-index-monthly/resources/consumer-price-index-at-division-level-base-year-2014-100-monthly-2017-03-14T16-09-29Z.csv'
+    Format: 'CSV'
+    Coverage: '1961-01-01 to 2017-01-31'
+    Last Updated: '2017-03-14T16:09:29.210067'
+    Schema:
+      -
+        Name: 'month'
+        Title: 'Month'
+        Type: 'datetime'
+        Sub Type: 'month'
+        Format: 'YYYY-MM'
+      -
+        Name: 'level_1'
+        Title: 'All Items'
+        Type: 'text'
+        Sub Type: 'general'
+      -
+        Name: 'level_2'
+        Title: 'Division'
+        Type: 'text'
+        Sub Type: 'general'
+      -
+        Name: 'value'
+        Title: 'Value'
+        Type: 'numeric'
+        Sub Type: 'general'
+        Unit Of Measure: 'Index'
+        Description: '"na" : Data not available or not applicable'
+  -
+    Identifier: '5fa8c503-9bdc-41cb-912f-923851eb2eca'
+    Title: 'Consumer Price Index at Group Level, Base Year 2014 = 100, Monthly'
+    Url: 'https://storage.data.gov.sg/consumer-price-index-monthly/resources/consumer-price-index-at-group-level-base-year-2014-100-monthly-2017-03-14T16-10-11Z.csv'
+    Format: 'CSV'
+    Coverage: '1961-01-01 to 2017-01-31'
+    Last Updated: '2017-03-14T16:10:11.862807'
+    Schema:
+      -
+        Name: 'month'
+        Title: 'Month'
+        Type: 'datetime'
+        Sub Type: 'month'
+        Format: 'YYYY-MM'
+      -
+        Name: 'level_1'
+        Title: 'All Items'
+        Type: 'text'
+        Sub Type: 'general'
+      -
+        Name: 'level_2'
+        Title: 'Division'
+        Type: 'text'
+        Sub Type: 'general'
+      -
+        Name: 'level_3'
+        Title: 'Group'
+        Type: 'text'
+        Sub Type: 'general'
+      -
+        Name: 'value'
+        Title: 'Value'
+        Type: 'numeric'
+        Sub Type: 'general'
+        Unit Of Measure: 'Index'
+        Description: '"na" : Data not available or not applicable'

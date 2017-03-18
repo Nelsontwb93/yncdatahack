@@ -1,0 +1,58 @@
+# Metadata for Subletting Approvals by Flat Type, Quarterly
+---
+Identifier: '8e3ea8e4-0ba3-4451-9781-9ea0d4f6e0d6'
+Name: 'number-of-subletting-approvals-by-flat-type-quarterly'
+Title: 'Subletting Approvals by Flat Type, Quarterly'
+Description: 'Number of applications approved for subletting of HDB flat, by flat
+  type.'
+Topics:
+  - 'Infrastructure'
+Keywords:
+  - 'HDB'
+  - 'Housing'
+  - 'Property'
+  - 'Rental'
+  - 'Subletting'
+Publisher:
+  Name: 'Housing and Development Board'
+  Admin 1:
+    Name: 'Michelle Tay'
+    Department: 'HDB'
+    Email: 'michelle_mb_tay@hdb.gov.sg'
+  Admin 2:
+    Name: 'Toh Xue Qin'
+    Department: 'HDB'
+    Email: 'toh_xue_qin@hdb.gov.sg'
+Sources:
+  - 'Housing and Development Board'
+Source Url: 'http://www.hdb.gov.sg/cs/infoweb/about-us/news-and-publications/press-releases'
+License: 'https://data.gov.sg/open-data-licence'
+Frequency: 'Quarterly'
+Coverage: '2007-01-01 to 2016-12-31'
+Last Updated: '2017-03-15T09:00:30.180786'
+Resources:
+  -
+    Identifier: '963f7db6-900f-4401-8889-973b74abf00a'
+    Title: 'Subletting Approvals by Flat Type, Quarterly'
+    Url: 'https://storage.data.gov.sg/number-of-subletting-approvals-by-flat-type-quarterly/resources/subletting-approvals-by-flat-type-quarterly-2017-03-15T09-00-29Z.csv'
+    Format: 'CSV'
+    Coverage: '2007-01-01 to 2016-12-31'
+    Last Updated: '2017-03-15T09:00:29.965849'
+    Schema:
+      -
+        Name: 'quarter'
+        Title: 'Quarter'
+        Type: 'datetime'
+        Sub Type: 'quarter'
+        Format: 'YYYY-[Q]Q'
+      -
+        Name: 'flat_type'
+        Title: 'Flat Type'
+        Type: 'text'
+        Sub Type: 'general'
+      -
+        Name: 'no_of_approvals'
+        Title: 'Number of Approvals'
+        Type: 'numeric'
+        Sub Type: 'general'
+        Unit Of Measure: 'Number of Approvals'
