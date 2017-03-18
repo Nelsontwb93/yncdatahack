@@ -121,8 +121,23 @@ recent.years <- resale.sublet[resale.sublet$year >= 2015,]
 recent.years$year <- factor(recent.years$year)
 summary(resale.sublet)
 # m1 <- lm(resale_price ~ . -quarter - month - sublet_per_month - floor_area_sqm, data = resale.sublet)
-m1 <- lm(resale_price ~ flat_type + town + storey_range + flat_model + lease_commence_date + sublet_per_month, data = resale.sublet)
+m1 <- lm(resale_price ~ flat_type + town + storey_range + flat_model + lease_commence_date + sublet_per_month, data = recent.years)
 summary(m1)
+```
+
+```{r}
+m1$coefficients[2:6]
+m1$xlevels[1]
+
+coeff <- data.frame(m1$coefficients)
+coeff$category <- as.character(rownames(coeff))
+colnames(coeff) <- c("change in price", "category")
+
+rooms <- coeff[2:6,]
+rooms <- rbind(rooms, c(0, "flat_type1 ROOM"))
+ggplot(rooms, aes(x=`change in price`, y=category))+ geom_point()
+
+
 ```
 
 ```{r}
