@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
 library(zoo)
 library(dplyr)
+library(MASS)
 ```
 
 ```{r}
@@ -107,9 +108,61 @@ ggplot(resale.sublet.rent[resale.sublet.rent$flat_type == "5 ROOM",], aes(x = su
 ```
 
 ```{r}
-ggplot(resale.sublet, aes(x=resale_price))
+ggplot(resale.sublet[resale.sublet$flat_type == "5 ROOM",], aes(x=median_subletting_rents,y=resale_price)) + geom_point(alpha = 0.5) + facet_wrap(~town)
+
+```
+
+```{r}
+resale.sublet$year <- substr(resale.sublet$quarter, 1,4)
+```
+
+```{r}
+recent.years <- resale.sublet[resale.sublet$year >= 2015,]
+recent.years$year <- factor(recent.years$year)
+summary(resale.sublet)
+# m1 <- lm(resale_price ~ . -quarter - month - sublet_per_month - floor_area_sqm, data = resale.sublet)
+m1 <- lm(resale_price ~ flat_type + town + storey_range + flat_model + lease_commence_date + sublet_per_month, data = resale.sublet)
+summary(m1)
+```
+
+```{r}
+
+plot(m1)
+```
+
+```{r}
+ks.test(m1$residuals, pnorm, mean(m1$residuals), sd(m1$residuals))
+```
+
+```{r}
+m2 <- lm(resale_price ~ flat_type + town + storey_range + lease_commence_date + sublet_per_month, data = resale.sublet)
+summary(m2)
+plot(m2)
 ```
 
 
+```{r}
+ks.test(m2$residuals, pnorm, mean(m2$residuals), sd(m2$residuals))
+```
 
+```{r}
+stepAIC(m1, direction = "backward")
+```
+```{r}
+
+m3 <- lm(resale_price ~ floor_area_sqm + town + storey_range + lease_commence_date + sublet_per_month, data = resale.sublet)
+summary(m3)
+plot(m3)
+ks.test(m3$residuals, pnorm, mean(m3$residuals), sd(m3$residuals))
+```
+
+```{r}
+m0 <- lm(resale_price ~ 1, resale.sublet)
+
+```
+
+```{r}
+
+stepAIC(m1, direction = "both")
+```
 
