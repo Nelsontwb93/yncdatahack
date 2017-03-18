@@ -1,0 +1,77 @@
+---
+title: "housing prices"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(ggplot2)
+library(zoo)
+library(dplyr)
+```
+
+```{r}
+resale <- read.csv("resale-flat-prices/resale-flat-prices-based-on-registration-date-from-march-2012-onwards.csv")
+sublet <- read.csv("resale-flat-prices/subletting-approvals-by-flat-type-quarterly.csv")
+sublet.rent <- read.csv("resale-flat-prices/median-subletting-rental-by-town-and-flat-type.csv")
+```
+
+```{r}
+head(resale)
+summary(resale)
+```
+
+convert flat type to same format
+```{r}
+unique(resale$flat_type)
+unique(sublet$flat_type)
+sublet$flat_type <- toupper(gsub("-", " ", sublet$flat_type))
+
+unique(sublet.rent$flat_type)
+sublet.rent$flat_type <- gsub("EXEC", "EXECUTIVE", gsub("-RM", " ROOM",sublet.rent$flat_type))
+
+```
+
+add quarter column to resale
+```{r}
+resale$quarter <- format(as.yearqtr(as.yearmon(resale$month)), "%Y-Q%q")
+sublet$sublet_per_month <- sublet$no_of_approvals / 3
+
+resale.sublet <- merge(resale, sublet[,c("quarter","flat_type", "sublet_per_month")], by = c("quarter", "flat_type"), all.x = TRUE)
+```
+
+get median price
+```{r}
+resale.sublet.median <- resale.sublet %>%
+  group_by(month, flat_type) %>%
+  summarize(median_price = median(resale_price),
+            sublet_per_month = mean(sublet_per_month))
+resale.sublet.median
+```
+
+```{r}
+p.sublet.price <- ggplot(resale.sublet.median[!is.na(resale.sublet.median$sublet_per_month),], aes(x = sublet_per_month, y=median_price,color=flat_type)) + geom_point(alpha = 0.5) + geom_smooth()
+p.sublet.price
+
+```
+
+```{r}
+ggplot(resale.sublet.median, aes(x = month, y=median_price,color=sublet_per_month)) + geom_point() + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + facet_wrap(~.flat_type)
+
+```
+```{r}
+
+
+```
+```{r}
+
+
+```
+```{r}
+
+
+```
