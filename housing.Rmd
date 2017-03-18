@@ -17,7 +17,7 @@ library(dplyr)
 ```{r}
 resale <- read.csv("resale-flat-prices/resale-flat-prices-based-on-registration-date-from-march-2012-onwards.csv")
 sublet <- read.csv("resale-flat-prices/subletting-approvals-by-flat-type-quarterly.csv")
-sublet.rent <- read.csv("resale-flat-prices/median-subletting-rental-by-town-and-flat-type.csv")
+sublet.rent <- read.csv("resale-flat-prices/median-subletting-rental-by-town-and-flat-type.csv", na.strings = c("na", "-"))
 ```
 
 ```{r}
@@ -33,6 +33,7 @@ sublet$flat_type <- toupper(gsub("-", " ", sublet$flat_type))
 
 unique(sublet.rent$flat_type)
 sublet.rent$flat_type <- gsub("EXEC", "EXECUTIVE", gsub("-RM", " ROOM",sublet.rent$flat_type))
+# sublet.rent$median_subletting_rents <- as.numeric(sublet.rent$median_subletting_rents)
 
 ```
 
@@ -42,6 +43,8 @@ resale$quarter <- format(as.yearqtr(as.yearmon(resale$month)), "%Y-Q%q")
 sublet$sublet_per_month <- sublet$no_of_approvals / 3
 
 resale.sublet <- merge(resale, sublet[,c("quarter","flat_type", "sublet_per_month")], by = c("quarter", "flat_type"), all.x = TRUE)
+resale.sublet <- merge(resale.sublet, sublet.rent, by = c("quarter","flat_type","town"), all.x = TRUE)
+
 ```
 
 get median price
@@ -63,15 +66,50 @@ p.sublet.price
 ggplot(resale.sublet.median, aes(x = month, y=median_price,color=sublet_per_month)) + geom_point() + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + facet_wrap(~.flat_type)
 
 ```
-```{r}
 
+
+```{r}
+resale.sublet.rent <- resale.sublet %>%
+  group_by(month, flat_type, town) %>%
+  summarize(median_price = median(resale_price),
+            sublet_per_month = mean(sublet_per_month),
+            sublet_rent = mean(median_subletting_rents, na.rm=TRUE))
+resale.sublet.rent
+```
+
+```{r}
+p.rent.price <- ggplot(resale.sublet.rent, aes(x = sublet_rent, y=median_price,color=town)) + geom_point(alpha = 0.5) +  facet_wrap(~flat_type)
+# geom_smooth() +
+p.rent.price
+
+```
+for 5 room flats, for towns with flats price < $600,000, price is correlated with sublet rent. towns with flats above that price, sublet rent is weakly correlated with sublet rent.
+```{r}
+five_room <- resale.sublet.rent[resale.sublet.rent$flat_type == "5 ROOM",]
+ggplot(five_room, aes(x = sublet_rent, y=median_price,color=town)) + geom_point(alpha = 0.5) + geom_smooth(method="lm")
+
+```
+
+```{r}
+four_room <- resale.sublet.rent[resale.sublet.rent$flat_type == "4 ROOM",]
+ggplot(four_room, aes(x = sublet_rent, y=median_price,color=town)) + geom_point(alpha = 0.5) + geom_smooth(method="lm")
+
+```
+sublet price vs number
+```{r}
+p.rent.number <- ggplot(resale.sublet.rent, aes(x = sublet_rent, y=sublet_per_month,color=town)) + geom_point(alpha = 0.5) +  facet_wrap(~flat_type)
+# geom_smooth() +
+p.rent.number
 
 ```
 ```{r}
-
-
+ggplot(resale.sublet.rent[resale.sublet.rent$flat_type == "5 ROOM",], aes(x = sublet_rent, y=sublet_per_month,color=town)) + geom_point(alpha = 0.5) + geom_smooth()
 ```
+
 ```{r}
-
-
+ggplot(resale.sublet, aes(x=resale_price))
 ```
+
+
+
+
